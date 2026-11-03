@@ -397,6 +397,13 @@ export function getChannel(channelId: string) {
   return row ? mapChannel(row) : null
 }
 
+export function listChannelRecipientIds(channelId: string) {
+  const channel = getChannel(channelId)
+  if (!channel) return []
+  if (channel.kind === 'text' && channel.serverId) return listMembers(channel.serverId).map((member) => member.id)
+  return (db.prepare(`SELECT user_id FROM dm_members WHERE channel_id = ?`).all(channelId) as { user_id: string }[]).map((row) => row.user_id)
+}
+
 export function canAccessChannel(userId: string, channelId: string) {
   const channel = getChannel(channelId)
   if (!channel) return null

@@ -6,6 +6,7 @@ import { Logo } from './AuthScreen'
 export function ServerRail() {
   const { servers, view, unread, openHome, openServer, setModal, dms } = useRelay()
   const [addOpen, setAddOpen] = useState(false)
+  const [menuPos, setMenuPos] = useState({ top: 0, left: 0 })
   const addRef = useRef<HTMLDivElement>(null)
   const homeUnread = dms.some((dm) => unread.includes(dm.id))
 
@@ -38,11 +39,19 @@ export function ServerRail() {
         )
       })}
       <div className="server-slot add" ref={addRef}>
-        <button className="server-btn add" title="Add a server" onClick={() => setAddOpen((open) => !open)}>
+        <button
+          className="server-btn add"
+          title="Add a server"
+          onClick={(event) => {
+            const rect = event.currentTarget.getBoundingClientRect()
+            setMenuPos({ top: rect.top, left: rect.right + 12 })
+            setAddOpen((open) => !open)
+          }}
+        >
           +
         </button>
         {addOpen && (
-          <div className="rail-menu">
+          <div className="rail-menu" style={{ position: 'fixed', top: menuPos.top, left: menuPos.left, zIndex: 40 }}>
             <button
               type="button"
               onClick={() => {

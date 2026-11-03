@@ -28,7 +28,23 @@ export function normalizeServerUrl(input: string) {
 }
 
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY)
+  const current = sessionStorage.getItem(TOKEN_KEY)
+  if (current) return current
+  const shared = localStorage.getItem(TOKEN_KEY)
+  if (!shared) return null
+  sessionStorage.setItem(TOKEN_KEY, shared)
+  localStorage.removeItem(TOKEN_KEY)
+  return shared
+}
+
+export function saveToken(token: string) {
+  sessionStorage.setItem(TOKEN_KEY, token)
+  localStorage.removeItem(TOKEN_KEY)
+}
+
+export function clearToken() {
+  sessionStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(TOKEN_KEY)
 }
 
 export function getServerUrl() {

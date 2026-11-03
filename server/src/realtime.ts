@@ -5,6 +5,7 @@ import {
   canAccessChannel,
   getUserById,
   listAccessibleChannelIds,
+  listChannelRecipientIds,
   listDmPeerIds,
   listRelatedUserIds,
   listServerIds,
@@ -162,16 +163,22 @@ async function leaveUserRooms(userId: string, serverId: string, channelIds: stri
   }
 }
 
+function emitToChannelMembers(channelId: string, event: string, payload: unknown) {
+  const io = getIo()
+  if (!io) return
+  for (const userId of listChannelRecipientIds(channelId)) io.to(`user:${userId}`).emit(event, payload)
+}
+
 export function broadcastMessageCreated(message: Message) {
-  getIo()?.to(`channel:${message.channelId}`).emit('message:created', message)
+  emitToChannelMembers(message.channelId, 'message:created', message)
 }
 
 export function broadcastMessageUpdated(message: Message) {
-  getIo()?.to(`channel:${message.channelId}`).emit('message:updated', message)
+  emitToChannelMembers(message.channelId, 'message:updated', message)
 }
 
 export function broadcastMessageDeleted(payload: { id: string; channelId: string }) {
-  getIo()?.to(`channel:${payload.channelId}`).emit('message:deleted', payload)
+  emitToChannelMembers(payload.channelId, 'message:deleted', payload)
 }
 
 export async function broadcastChannelCreated(channel: Channel, actorId?: string) {

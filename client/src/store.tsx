@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { api, ApiError, checkHealth, getServerUrl, getToken, normalizeServerUrl, saveServerUrl, TOKEN_KEY } from './api'
+import { api, ApiError, checkHealth, clearToken, getServerUrl, getToken, normalizeServerUrl, saveServerUrl, saveToken } from './api'
 import { connectSocket, disconnectSocket, getSocket } from './socket'
 import type { Bootstrap, Channel, DirectMessage, Message, ModalState, ServerInfo, Toast, TypingUser, User, View } from './types'
 
@@ -129,7 +129,7 @@ export function RelayProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const logout = useCallback(() => {
-    localStorage.removeItem(TOKEN_KEY)
+    clearToken()
     disconnectSocket()
     meRef.current = null
     setToken(null)
@@ -330,7 +330,7 @@ export function RelayProvider({ children }: { children: ReactNode }) {
     await checkHealth(normalized)
     const saved = saveServerUrl(normalized)
     const result = await api<{ token: string }>(path, { body, token: null, serverUrl: saved })
-    localStorage.setItem(TOKEN_KEY, result.token)
+    saveToken(result.token)
     setServerUrl(saved)
     setToken(result.token)
     setStatus('loading')
@@ -477,7 +477,7 @@ export function RelayProvider({ children }: { children: ReactNode }) {
     await checkHealth(normalized)
     if (normalized === getServerUrl() && token) return 'same' as const
     saveServerUrl(normalized)
-    localStorage.removeItem(TOKEN_KEY)
+    clearToken()
     disconnectSocket()
     meRef.current = null
     setServerUrl(normalized)
