@@ -1,0 +1,8 @@
+node_modules/
+dist/
+release/
+server/data/
+*.log
+.DS_Store
+desktop/release/
+.ui-check/

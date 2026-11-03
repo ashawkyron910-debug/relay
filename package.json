@@ -1,0 +1,21 @@
+{
+  "name": "relay",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Relay is a downloadable chat app with servers, channels, and direct messages.",
+  "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install && npm --prefix desktop install",
+    "dev": "concurrently -n server,web -c blue,green \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "dev:desktop": "concurrently -n server,web,app -c blue,green,magenta \"npm --prefix server run dev\" \"npm --prefix client run dev\" \"wait-on tcp:127.0.0.1:4000 tcp:127.0.0.1:5173 && npm --prefix desktop run dev\"",
+    "start": "npm --prefix server run start",
+    "build": "npm --prefix client run build",
+    "check": "npm --prefix server run check && npm --prefix client run check",
+    "pack:linux": "npm run build && npm --prefix desktop run dist:linux",
+    "pack:win": "npm run build && npm --prefix desktop run dist:win",
+    "icon": "python3 scripts/make-icon.py"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "wait-on": "^8.0.5"
+  }
+}

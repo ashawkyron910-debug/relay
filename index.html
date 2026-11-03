@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relay — Download</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='14' width='64' height='64' fill='%235865f2'/%3E%3Crect x='14' y='18' width='36' height='24' rx='12' fill='white'/%3E%3Ccircle cx='26' cy='30' r='3' fill='%235865f2'/%3E%3Ccircle cx='32' cy='30' r='3' fill='%235865f2'/%3E%3Ccircle cx='38' cy='30' r='3' fill='%235865f2'/%3E%3C/svg%3E" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #111214;
+        --card: #1e1f22;
+        --panel: #2b2d31;
+        --text: #f2f3f5;
+        --muted: #b5bac1;
+        --faint: #949ba4;
+        --accent: #5865f2;
+        --accent-hover: #4752c4;
+        --line: rgba(255, 255, 255, 0.08);
+        --ok: #23a559;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Ubuntu, Cantarell, "Noto Sans", sans-serif;
+        background:
+          radial-gradient(900px 420px at 10% -10%, rgba(88, 101, 242, 0.35), transparent 55%),
+          var(--bg);
+        color: var(--text);
+      }
+      a { color: #00a8fc; }
+      header, main { width: min(1040px, calc(100% - 32px)); margin: 0 auto; }
+      header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 8px; }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 22px; }
+      .logo { width: 42px; height: 42px; display: block; }
+      .nav { color: var(--muted); text-decoration: none; font-weight: 650; }
+      .hero { padding: 48px 0 24px; }
+      h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.02; margin: 0 0 16px; max-width: 720px; }
+      .lede { max-width: 620px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+      .downloads { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+      .card, .steps, .host {
+        background: rgba(30, 31, 34, 0.92);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+      .card { padding: 22px; display: grid; gap: 12px; align-content: start; }
+      .card h2, .steps h2, .host h2 { margin: 0; font-size: 22px; }
+      .os { color: var(--faint); font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+      .button, .ghost {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-weight: 750;
+      }
+      .button { background: var(--accent); color: white; }
+      .button:hover { background: var(--accent-hover); }
+      .ghost { background: #383a40; color: white; }
+      .ghost:hover { background: #4e5058; }
+      .meta { color: var(--faint); font-size: 13px; }
+      .steps, .host { padding: 22px 24px 8px; margin-bottom: 16px; }
+      ol { margin: 12px 0 18px; padding-left: 20px; color: var(--muted); line-height: 1.55; }
+      code, pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92em;
+      }
+      code { background: #111214; border-radius: 4px; padding: 1px 6px; }
+      pre {
+        background: #111214;
+        border-radius: 8px;
+        padding: 12px 14px;
+        overflow: auto;
+        color: var(--text);
+      }
+      footer { width: min(1040px, calc(100% - 32px)); margin: 8px auto 40px; color: var(--faint); font-size: 13px; }
+      @media (max-width: 760px) {
+        .downloads { grid-template-columns: 1fr; }
+        header { padding-top: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="16" fill="#5865f2" />
+          <rect x="14" y="18" width="36" height="24" rx="12" fill="white" />
+          <circle cx="26" cy="30" r="3.2" fill="#5865f2" />
+          <circle cx="32" cy="30" r="3.2" fill="#5865f2" />
+          <circle cx="38" cy="30" r="3.2" fill="#5865f2" />
+        </svg>
+        Relay
+      </div>
+      <a class="nav" href="#run">How to run it</a>
+    </header>
+    <main>
+      <section class="hero">
+        <h1>Download Relay and start talking.</h1>
+        <p class="lede">Servers, text channels, and direct messages for Linux and Windows. Install the app, open it, and sign in.</p>
+        <div class="downloads">
+          <article class="card">
+            <div class="os">Linux</div>
+            <h2>AppImage or Debian package</h2>
+            <a class="button" href="desktop/release/Relay-0.1.0.AppImage" download>Download AppImage · 104 MB</a>
+            <a class="ghost" href="desktop/release/relay-desktop_0.1.0_amd64.deb" download>Download .deb · 72 MB</a>
+            <p class="meta">The AppImage runs without installing. The .deb adds a Relay entry to your app menu.</p>
+          </article>
+          <article class="card">
+            <div class="os">Windows</div>
+            <h2>Setup wizard or zip</h2>
+            <a class="button" href="desktop/release/Relay%20Setup%200.1.0.exe" download>Download setup · 79 MB</a>
+            <a class="ghost" href="desktop/release/Relay-0.1.0-win.zip" download>Download zip · 107 MB</a>
+            <p class="meta">Use the setup file for a normal install. The zip is a portable copy of the app.</p>
+          </article>
+        </div>
+      </section>
+      <section class="steps" id="run">
+        <h2>Run the app</h2>
+        <ol>
+          <li>Download the file for your system.</li>
+          <li>
+            Linux AppImage, in a terminal:
+            <pre>chmod +x Relay-0.1.0.AppImage
+./Relay-0.1.0.AppImage</pre>
+            Or install the package with <code>sudo apt install ./relay-desktop_0.1.0_amd64.deb</code> and open Relay from the menu.
+          </li>
+          <li>Windows: double-click <code>Relay Setup 0.1.0.exe</code> and follow the installer. From the zip, open the folder and start <code>relay.exe</code>.</li>
+          <li>On the sign-in screen, leave the server as <code>http://127.0.0.1:4000</code> if the server is on this computer. Create an account, then create a server and share its invite code.</li>
+        </ol>
+      </section>
+      <section class="host">
+        <h2>Let other people join</h2>
+        <ol>
+          <li>On the computer that hosts Relay, open this project and run:</li>
+        </ol>
+        <pre>npm run install:all
+npm start</pre>
+        <ol start="2">
+          <li>The terminal prints a network address, such as <code>http://192.168.1.113:4000</code>.</li>
+          <li>Everyone else types that address into the Server field before they register or log in.</li>
+          <li>Share the invite code from the server menu so they can join the same rooms.</li>
+        </ol>
+      </section>
+    </main>
+    <footer>Relay 0.1.0 · The desktop app talks to a Relay server. One computer runs the server, and every app connects to it.</footer>
+  </body>
+</html>

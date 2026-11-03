@@ -1,0 +1,55 @@
+{
+  "name": "relay-desktop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Relay desktop app for Linux and Windows.",
+  "homepage": "https://example.com/relay",
+  "main": "main.cjs",
+  "author": "Relay",
+  "scripts": {
+    "dev": "electron .",
+    "dist:linux": "electron-builder --linux AppImage deb",
+    "dist:win": "electron-builder --win zip nsis"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "app.relay.desktop",
+    "productName": "Relay",
+    "executableName": "relay",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "package.json",
+      "build/icon.png"
+    ],
+    "extraResources": [
+      {
+        "from": "../client/dist",
+        "to": "ui"
+      }
+    ],
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network",
+      "icon": "build/icon.png",
+      "synopsis": "Servers, channels, and direct messages",
+      "maintainer": "Relay"
+    },
+    "win": {
+      "target": ["zip", "nsis"],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Relay"
+    }
+  }
+}
